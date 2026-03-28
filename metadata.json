@@ -1,0 +1,5 @@
+{
+  "name": "PolyLab",
+  "description": "A 3D Polyhedron builder and folding simulator. Design 2D nets and fold them into 3D shapes.",
+  "requestFramePermissions": []
+}

@@ -1,0 +1,194 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+input[type="number"] {
+  color-scheme: light;
+}
+
+.ui-theme-dark {
+  color: #e5e7eb;
+}
+
+.ui-theme-dark .bg-white,
+.ui-theme-dark.bg-white {
+  background-color: #141414 !important;
+}
+
+.ui-theme-dark .bg-gray-50,
+.ui-theme-dark.bg-gray-50 {
+  background-color: #1b1b1b !important;
+}
+
+.ui-theme-dark .bg-gray-100,
+.ui-theme-dark.bg-gray-100 {
+  background-color: #242424 !important;
+}
+
+.ui-theme-dark .bg-gray-200,
+.ui-theme-dark.bg-gray-200 {
+  background-color: #323232 !important;
+}
+
+.ui-theme-dark .border-gray-100,
+.ui-theme-dark.border-gray-100,
+.ui-theme-dark .border-gray-200,
+.ui-theme-dark.border-gray-200,
+.ui-theme-dark .border-gray-300,
+.ui-theme-dark.border-gray-300,
+.ui-theme-dark .border-gray-400,
+.ui-theme-dark.border-gray-400 {
+  border-color: #3d3d3d !important;
+}
+
+.ui-theme-dark .text-gray-800,
+.ui-theme-dark.text-gray-800,
+.ui-theme-dark .text-gray-700,
+.ui-theme-dark.text-gray-700,
+.ui-theme-dark .text-gray-900,
+.ui-theme-dark.text-gray-900 {
+  color: #f3f4f6 !important;
+}
+
+.ui-theme-dark .text-gray-600,
+.ui-theme-dark.text-gray-600 {
+  color: #d4d4d4 !important;
+}
+
+.ui-theme-dark .text-gray-500,
+.ui-theme-dark.text-gray-500,
+.ui-theme-dark .text-gray-400,
+.ui-theme-dark.text-gray-400 {
+  color: #a3a3a3 !important;
+}
+
+.ui-theme-dark .hover\:bg-gray-50:hover,
+.ui-theme-dark .hover\:bg-gray-200:hover,
+.ui-theme-dark .hover\:bg-gray-300:hover {
+  background-color: #343434 !important;
+}
+
+.ui-theme-dark .bg-blue-50,
+.ui-theme-dark.bg-blue-50 {
+  background-color: rgba(30, 64, 175, 0.22) !important;
+}
+
+.ui-theme-dark .bg-blue-100,
+.ui-theme-dark.bg-blue-100 {
+  background-color: rgba(37, 99, 235, 0.28) !important;
+}
+
+.ui-theme-dark .bg-red-50,
+.ui-theme-dark.bg-red-50 {
+  background-color: rgba(127, 29, 29, 0.3) !important;
+}
+
+.ui-theme-dark .text-blue-700,
+.ui-theme-dark.text-blue-700 {
+  color: #bfdbfe !important;
+}
+
+.ui-theme-dark .text-red-700,
+.ui-theme-dark.text-red-700 {
+  color: #fecaca !important;
+}
+
+.ui-theme-dark input:not([type="range"]):not([type="checkbox"]),
+.ui-theme-dark select,
+.ui-theme-dark textarea {
+  background-color: #141414 !important;
+  color: #f3f4f6 !important;
+  border-color: #4a4a4a !important;
+}
+
+.ui-theme-dark input[type="number"] {
+  color-scheme: dark;
+}
+
+.ui-theme-dark input::placeholder,
+.ui-theme-dark textarea::placeholder {
+  color: #737373 !important;
+}
+
+.ui-theme-dark .menu-panel,
+.ui-theme-dark.menu-panel {
+  background-color: #141414 !important;
+  color: #f3f4f6 !important;
+  border-color: #3d3d3d !important;
+}
+
+.ui-theme-dark .menu-surface,
+.ui-theme-dark.menu-surface {
+  background-color: #1b1b1b !important;
+  color: #f3f4f6 !important;
+  border-color: #3d3d3d !important;
+}
+
+.ui-theme-dark .menu-subtle,
+.ui-theme-dark.menu-subtle {
+  background-color: #242424 !important;
+  color: #e5e7eb !important;
+  border-color: #3d3d3d !important;
+}
+
+.ui-theme-dark .menu-hover:hover,
+.ui-theme-dark.menu-hover:hover {
+  background-color: #343434 !important;
+}
+
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: #cbd5e1;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.ui-theme-dark.thin-scrollbar,
+.ui-theme-dark .thin-scrollbar {
+  scrollbar-color: #5a5a5a transparent;
+}
+
+.ui-theme-dark.thin-scrollbar::-webkit-scrollbar-thumb,
+.ui-theme-dark .thin-scrollbar::-webkit-scrollbar-thumb {
+  background: #5a5a5a;
+}
+
+.ui-theme-dark.thin-scrollbar::-webkit-scrollbar-thumb:hover,
+.ui-theme-dark .thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #737373;
+}
