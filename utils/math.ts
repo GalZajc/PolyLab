@@ -2228,7 +2228,8 @@ function getAdvancedMagnetNormalizedVertexContext(
   const touchesHingeB = (component: Set<string>) => component.has(connB.faceAId) || component.has(connB.faceBId);
   const branchA = components.find(component => touchesHingeA(component) && !touchesHingeB(component));
   const branchB = components.find(component => touchesHingeB(component) && !touchesHingeA(component));
-  if (!branchA || !branchB) return null;
+  const restComponent = components.find(component => touchesHingeA(component) && touchesHingeB(component));
+  if (!branchA || !branchB || !restComponent) return null;
 
   const normalizedHingeA = canonicalizeHingeForBranch(connA, branchA);
   const normalizedHingeB = canonicalizeHingeForBranch(connB, branchB);
@@ -2236,9 +2237,9 @@ function getAdvancedMagnetNormalizedVertexContext(
   if (!normalizedHingeA || !normalizedHingeB || !normalizedTargets) return null;
 
   const solveRootId =
-    (preferredRootId && net.faces[preferredRootId] && !branchA.has(preferredRootId) && !branchB.has(preferredRootId)
+    (preferredRootId && restComponent.has(preferredRootId)
       ? preferredRootId
-      : Object.keys(net.faces).find(faceId => !branchA.has(faceId) && !branchB.has(faceId))) || null;
+      : Array.from(restComponent)[0]) || null;
   if (!solveRootId) return null;
 
   return {
@@ -2274,7 +2275,8 @@ function getAdvancedMagnetNormalizedEdgeContext(
   const touchesHingeB = (component: Set<string>) => component.has(connB.faceAId) || component.has(connB.faceBId);
   const branchA = components.find(component => touchesHingeA(component) && !touchesHingeB(component));
   const branchB = components.find(component => touchesHingeB(component) && !touchesHingeA(component));
-  if (!branchA || !branchB) return null;
+  const restComponent = components.find(component => touchesHingeA(component) && touchesHingeB(component));
+  if (!branchA || !branchB || !restComponent) return null;
 
   const normalizedHingeA = canonicalizeHingeForBranch(connA, branchA);
   const normalizedHingeB = canonicalizeHingeForBranch(connB, branchB);
@@ -2282,9 +2284,9 @@ function getAdvancedMagnetNormalizedEdgeContext(
   if (!normalizedHingeA || !normalizedHingeB || !normalizedTargets) return null;
 
   const solveRootId =
-    (preferredRootId && net.faces[preferredRootId] && !branchA.has(preferredRootId) && !branchB.has(preferredRootId)
+    (preferredRootId && restComponent.has(preferredRootId)
       ? preferredRootId
-      : Object.keys(net.faces).find(faceId => !branchA.has(faceId) && !branchB.has(faceId))) || null;
+      : Array.from(restComponent)[0]) || null;
   if (!solveRootId) return null;
 
   return {
