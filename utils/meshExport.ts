@@ -117,7 +117,9 @@ export function buildMeshExportData(
 
   return {
     verticesCsv: vertices.map(vertex => (
-      `${formatCsvNumber(vertex.x)},${formatCsvNumber(vertex.y)},${formatCsvNumber(vertex.z)}`
+      options.exportMode === '2d'
+        ? `${formatCsvNumber(vertex.x)},${formatCsvNumber(vertex.y)}`
+        : `${formatCsvNumber(vertex.x)},${formatCsvNumber(vertex.y)},${formatCsvNumber(vertex.z)}`
     )).join('\n'),
     indicesCsv: indexRows.map(row => row.join(',')).join('\n'),
     vertexCount: vertices.length,
