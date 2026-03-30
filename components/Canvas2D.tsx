@@ -642,7 +642,7 @@ export const Canvas2D: React.FC<Canvas2DProps> = ({
 
   return (
     <div
-      className={`w-full h-full overflow-hidden select-none relative ${theme === 'dark' ? 'bg-slate-900' : theme === 'light' ? 'bg-gray-50' : ''} ${isPlacing ? 'cursor-default' : 'cursor-crosshair'}`}
+      className={`w-full h-full overflow-hidden select-none relative ${theme === 'dark' ? 'bg-slate-900' : theme === 'light' ? 'bg-white' : ''} ${isPlacing ? 'cursor-default' : 'cursor-crosshair'}`}
       style={theme === 'custom' ? { backgroundColor: customBackgroundColor } : undefined}
     >
       <svg 

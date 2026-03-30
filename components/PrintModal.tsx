@@ -66,7 +66,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({ net, selectedFaceIds, ui
   const [style, setStyle] = useState<'color' | 'outline'>('outline');
   const [showTabs, setShowTabs] = useState(true);
   const [tabStrategy, setTabStrategy] = useState<'all' | 'shared3d'>('shared3d');
-  const [tabHeightRatio, setTabHeightRatio] = useState(0.25);
+  const [tabHeightCm, setTabHeightCm] = useState(0.4);
   const [tabAngle, setTabAngle] = useState(40);
   const [margin, setMargin] = useState(10); // mm
   const [lineWidth, setLineWidth] = useState(0.2); // mm - Thicker default
@@ -163,10 +163,11 @@ export const PrintModal: React.FC<PrintModalProps> = ({ net, selectedFaceIds, ui
             }
 
             const [p1, p2] = getEdgeWorldPoints(face.def.vertices, tx, edgeIndex);
-            const edgeLength = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
-            if (edgeLength <= 1) return;
+            const edgeWorldLength = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
+            if (edgeWorldLength <= 1) return;
 
-            const tabPoly = generateGlueTab(p1, p2, edgeLength * tabHeightRatio, tabAngle);
+            const tabHeightInternal = (tabHeightCm * 60) / edgeLength;
+            const tabPoly = generateGlueTab(p1, p2, tabHeightInternal, tabAngle);
             if (tabPoly.length === 0) return;
 
             let groupKey = `${face.id}:${edgeIndex}`;
@@ -246,7 +247,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({ net, selectedFaceIds, ui
           // Bounds of centered geometry (0-centered)
           bounds: { minX: minX - cx, maxX: maxX - cx, minY: minY - cy, maxY: maxY - cy }
       };
-  }, [facesToPrint, net, showTabs, tabAngle, tabHeightRatio, tabStrategy]);
+  }, [facesToPrint, net, showTabs, tabAngle, tabHeightCm, tabStrategy]);
 
   // Calculate metrics of the rotated shape (bounds and center shift)
   // This is crucial for properly centering the rotated shape on the page
@@ -558,9 +559,9 @@ export const PrintModal: React.FC<PrintModalProps> = ({ net, selectedFaceIds, ui
                          <div>
                              <div className="flex justify-between text-xs text-gray-500 mb-1">
                                 <span>Height</span>
-                                <span>{Math.round(tabHeightRatio*100)}%</span>
+                                <span>{tabHeightCm.toFixed(2)} cm</span>
                              </div>
-                             <input type="range" min="0.1" max="0.5" step="0.05" value={tabHeightRatio} onChange={e => setTabHeightRatio(parseFloat(e.target.value))} className="w-full accent-blue-600"/>
+                             <input type="range" min="0" max="1" step="0.05" value={tabHeightCm} onChange={e => setTabHeightCm(parseFloat(e.target.value))} className="w-full accent-blue-600"/>
                          </div>
                          <div>
                              <div className="flex justify-between text-xs text-gray-500 mb-1">
