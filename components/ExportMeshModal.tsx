@@ -25,8 +25,8 @@ export const ExportMeshModal: React.FC<ExportMeshModalProps> = ({
 
   return (
     <div className={`absolute inset-0 z-[80] flex items-center justify-center bg-black/30 ${uiTheme === 'dark' ? 'ui-theme-dark' : ''}`}>
-      <div className="menu-panel w-[26rem] rounded-2xl border border-gray-200 bg-white shadow-2xl">
-        <div className="menu-subtle flex items-center justify-between border-b border-gray-200 px-5 py-4">
+      <div className="menu-panel w-[26rem] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl">
+        <div className="menu-subtle rounded-t-2xl flex items-center justify-between border-b border-gray-200 px-5 py-4">
           <div>
             <div className="text-base font-semibold text-gray-800">Export Mesh</div>
             <div className="text-xs text-gray-500">
