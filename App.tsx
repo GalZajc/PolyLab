@@ -756,16 +756,16 @@ const App: React.FC = () => {
     }
   }, [downloadNetJson, net]);
 
-  const getMeshExportData = useCallback((options: { deduplicateVertices: boolean; triangulate: boolean }) => (
+  const getMeshExportData = useCallback((options: { exportMode: '2d' | '3d'; deduplicateVertices: boolean; triangulate: boolean }) => (
     buildMeshExportData(net, Array.from(selectedFaceIds), options)
   ), [net, selectedFaceIds]);
 
-  const exportMeshVerticesCsv = useCallback((options: { deduplicateVertices: boolean; triangulate: boolean }) => {
+  const exportMeshVerticesCsv = useCallback((options: { exportMode: '2d' | '3d'; deduplicateVertices: boolean; triangulate: boolean }) => {
     const data = getMeshExportData(options);
     void saveTextFile('mesh_vertices.csv', data.verticesCsv, 'text/csv');
   }, [getMeshExportData, saveTextFile]);
 
-  const exportMeshIndicesCsv = useCallback((options: { deduplicateVertices: boolean; triangulate: boolean }) => {
+  const exportMeshIndicesCsv = useCallback((options: { exportMode: '2d' | '3d'; deduplicateVertices: boolean; triangulate: boolean }) => {
     const data = getMeshExportData(options);
     void saveTextFile('mesh_indices.csv', data.indicesCsv, 'text/csv');
   }, [getMeshExportData, saveTextFile]);

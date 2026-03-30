@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import { PlacedFace, Point3D, PolyNet } from '../types';
-import { applyMatrix4, compute3DLayout, getConnectedComponent } from './math';
+import { applyMatrix4, applyTransform2D, compute3DLayout, createTransform2D, getConnectedComponent } from './math';
 
 export interface MeshExportOptions {
+  exportMode: '2d' | '3d';
   deduplicateVertices: boolean;
   triangulate: boolean;
   tolerance?: number;
@@ -58,6 +59,14 @@ function triangulateFace(face: PlacedFace): number[][] {
   return triangles.map(triangle => [triangle[0], triangle[1], triangle[2]]);
 }
 
+function get2DWorldVertices(face: PlacedFace): Point3D[] {
+  const transform = createTransform2D(face.transform.x, face.transform.y, face.transform.rotation);
+  return face.def.vertices.map(vertex => {
+    const point = applyTransform2D(transform, vertex);
+    return { x: point.x, y: point.y, z: 0 };
+  });
+}
+
 export function buildMeshExportData(
   net: PolyNet,
   selectedFaceIds: string[],
@@ -84,10 +93,16 @@ export function buildMeshExportData(
 
   orderedFaceIds.forEach(faceId => {
     const face = net.faces[faceId];
-    const matrix = matrices[faceId];
-    if (!face || !matrix) return;
+    if (!face) return;
 
-    const worldVertices = face.def.vertices.map(vertex => applyMatrix4({ x: vertex.x, y: vertex.y, z: 0 }, matrix));
+    const worldVertices = options.exportMode === '2d'
+      ? get2DWorldVertices(face)
+      : (() => {
+          const matrix = matrices[faceId];
+          if (!matrix) return null;
+          return face.def.vertices.map(vertex => applyMatrix4({ x: vertex.x, y: vertex.y, z: 0 }, matrix));
+        })();
+    if (!worldVertices) return;
     const vertexIndices = worldVertices.map(registerVertex);
 
     if (options.triangulate) {

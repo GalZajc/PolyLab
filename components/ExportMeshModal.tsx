@@ -6,8 +6,8 @@ interface ExportMeshModalProps {
   selectedFaceCount: number;
   totalFaceCount: number;
   onClose: () => void;
-  onExportVertices: (options: { deduplicateVertices: boolean; triangulate: boolean }) => void;
-  onExportIndices: (options: { deduplicateVertices: boolean; triangulate: boolean }) => void;
+  onExportVertices: (options: { exportMode: '2d' | '3d'; deduplicateVertices: boolean; triangulate: boolean }) => void;
+  onExportIndices: (options: { exportMode: '2d' | '3d'; deduplicateVertices: boolean; triangulate: boolean }) => void;
 }
 
 export const ExportMeshModal: React.FC<ExportMeshModalProps> = ({
@@ -18,6 +18,7 @@ export const ExportMeshModal: React.FC<ExportMeshModalProps> = ({
   onExportVertices,
   onExportIndices
 }) => {
+  const [exportMode, setExportMode] = useState<'2d' | '3d'>('3d');
   const [deduplicateVertices, setDeduplicateVertices] = useState(false);
   const [triangulate, setTriangulate] = useState(false);
   const exportCount = selectedFaceCount > 0 ? selectedFaceCount : totalFaceCount;
@@ -38,6 +39,24 @@ export const ExportMeshModal: React.FC<ExportMeshModalProps> = ({
         </div>
 
         <div className="space-y-3 px-5 py-4">
+          <div className="menu-surface rounded-lg border border-gray-200 bg-gray-50 p-1">
+            <div className="grid grid-cols-2 gap-1">
+              <button
+                type="button"
+                onClick={() => setExportMode('2d')}
+                className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${exportMode === '2d' ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'}`}
+              >
+                2D
+              </button>
+              <button
+                type="button"
+                onClick={() => setExportMode('3d')}
+                className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${exportMode === '3d' ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'}`}
+              >
+                3D
+              </button>
+            </div>
+          </div>
           <label className="menu-surface flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-700">
             <span>Remove duplicated vertices</span>
             <input
@@ -65,7 +84,7 @@ export const ExportMeshModal: React.FC<ExportMeshModalProps> = ({
           </button>
           <button
             type="button"
-            onClick={() => onExportVertices({ deduplicateVertices, triangulate })}
+            onClick={() => onExportVertices({ exportMode, deduplicateVertices, triangulate })}
             className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700"
           >
             <Download size={16} />
@@ -73,7 +92,7 @@ export const ExportMeshModal: React.FC<ExportMeshModalProps> = ({
           </button>
           <button
             type="button"
-            onClick={() => onExportIndices({ deduplicateVertices, triangulate })}
+            onClick={() => onExportIndices({ exportMode, deduplicateVertices, triangulate })}
             className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700"
           >
             <Download size={16} />
