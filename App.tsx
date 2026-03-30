@@ -1255,6 +1255,17 @@ const App: React.FC = () => {
     setLastMagnetAction(null);
     focus3DNetOnFace(faceId);
     const clickedEdge = { faceId, edgeIndex: edgeIdx };
+
+    if (magnetMode === 'vertex' && selectedMagnetEdges.length === 2) {
+      const existingVertexHingeIndex = selectedMagnetEdges.findIndex(edge => edge.faceId === faceId && edge.edgeIndex === edgeIdx);
+      if (existingVertexHingeIndex >= 0) {
+        const nextHinges = selectedMagnetEdges.filter((_, index) => index !== existingVertexHingeIndex);
+        setSelectedMagnetEdges(nextHinges);
+        setSelectedMagnetVertices([]);
+      }
+      return;
+    }
+
     const selectingHinges = magnetMode !== 'regular' && !(magnetMode === 'edge' && magnetEdgeTargetsConfirmed && selectedMagnetEdges.length === 2);
 
     if (selectingHinges && !isHingeEdge(clickedEdge)) {

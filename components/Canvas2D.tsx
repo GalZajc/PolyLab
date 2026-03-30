@@ -369,8 +369,8 @@ export const Canvas2D: React.FC<Canvas2DProps> = ({
         const clickedVertex = getClickedVertex(worldPos);
         if (clickedVertex) {
           onMagnetSelectVertex?.(clickedVertex.faceId, clickedVertex.vertexIndex);
-          return;
         }
+        return;
       }
       if (e.button === 0 && hoveredEdge) {
         onMagnetSelect?.(hoveredEdge.faceId, hoveredEdge.edgeIndex);
