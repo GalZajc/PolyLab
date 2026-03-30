@@ -583,14 +583,15 @@ export function generateGlueTab(p1: Point2D, p2: Point2D, height: number, angleD
     
     // If inset is too large, cap it to half length (triangle)
     const actualInset = Math.min(inset, len / 2);
+    const actualHeight = actualInset * Math.tan(angleRad);
     
     const t1 = {
-        x: p1.x + nx * height + ux * actualInset,
-        y: p1.y + ny * height + uy * actualInset
+        x: p1.x + nx * actualHeight + ux * actualInset,
+        y: p1.y + ny * actualHeight + uy * actualInset
     };
     const t2 = {
-        x: p2.x + nx * height - ux * actualInset,
-        y: p2.y + ny * height - uy * actualInset
+        x: p2.x + nx * actualHeight - ux * actualInset,
+        y: p2.y + ny * actualHeight - uy * actualInset
     };
 
     return [p1, t1, t2, p2];

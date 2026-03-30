@@ -587,6 +587,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({ net, selectedFaceIds, ui
              {/* Preview Panel */}
              <div
                 className={`flex-1 bg-gray-200 flex items-center justify-center overflow-hidden relative ${dragStart ? 'cursor-grabbing' : 'cursor-grab'}`}
+                style={uiTheme === 'dark' ? { backgroundColor: '#323232' } : undefined}
                 ref={containerRef}
                 onWheel={handlePreviewWheel}
                 onMouseDown={handlePreviewMouseDown}
@@ -596,12 +597,17 @@ export const PrintModal: React.FC<PrintModalProps> = ({ net, selectedFaceIds, ui
              >
                 {/* Paper Sheet Simulation */}
                 <div 
-                   className={`shadow-[0_0_20px_rgba(0,0,0,0.2)] border relative transition-transform duration-200 origin-center ${paperTheme === 'dark' ? 'bg-slate-900 border-slate-700' : paperTheme === 'light' ? 'bg-white border-gray-400' : 'border-gray-400'}`} 
+                   className={`shadow-[0_0_20px_rgba(0,0,0,0.2)] border relative transition-transform duration-200 origin-center ${paperTheme === 'dark' ? 'border-slate-700' : 'border-gray-400'}`} 
                    style={{ 
                        width: `${paper.width}px`,
                        height: `${paper.height}px`,
                        transform: `translate(${viewPan.x}px, ${viewPan.y}px) scale(${previewScale * viewZoom})`,
-                       ...(paperTheme === 'custom' ? { backgroundColor: customPaperColor || '#ffffff' } : {})
+                       backgroundColor:
+                         paperTheme === 'dark'
+                           ? '#0f172a'
+                           : paperTheme === 'light'
+                             ? '#ffffff'
+                             : (customPaperColor || '#ffffff')
                    }}
                 >
                     <svg 
